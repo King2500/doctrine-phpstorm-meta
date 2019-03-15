@@ -1,0 +1,17 @@
+{
+  "name": "thomas-schulz/doctrine-phpstorm-meta",
+  "description": "PhpStorm meta data for expected arguments completion in Doctrine projects.",
+  "keywords": ["PhpStorm", "Doctrine", "metadata", "autocomplete", "code"],
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "Thomas Schulz",
+      "email": "mail@king2500.net"
+    }
+  ],
+  "require-dev": {
+    "doctrine/annotations": "^1.6",
+    "doctrine/collections": "^1.5",
+    "doctrine/dbal": "^2.9"
+  }
+}
