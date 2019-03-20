@@ -1,5 +1,6 @@
 {
   "name": "thomas-schulz/doctrine-phpstorm-meta",
+  "license": "MIT",
   "description": "PhpStorm meta data for expected arguments completion in Doctrine projects.",
   "keywords": ["PhpStorm", "Doctrine", "metadata", "autocomplete", "code"],
   "minimum-stability": "stable",
