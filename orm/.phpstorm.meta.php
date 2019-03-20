@@ -3,11 +3,11 @@
 namespace PHPSTORM_META {
 
 	registerArgumentsSet('doctrine_hydration_modes',
-		\Doctrine\ORM\AbstractQuery::HYDRATE_OBJECT,
-		\Doctrine\ORM\AbstractQuery::HYDRATE_ARRAY,
-		\Doctrine\ORM\AbstractQuery::HYDRATE_SCALAR,
-		\Doctrine\ORM\AbstractQuery::HYDRATE_SINGLE_SCALAR,
-		\Doctrine\ORM\AbstractQuery::HYDRATE_SIMPLEOBJECT
+		\Doctrine\ORM\Query::HYDRATE_OBJECT,
+		\Doctrine\ORM\Query::HYDRATE_ARRAY,
+		\Doctrine\ORM\Query::HYDRATE_SCALAR,
+		\Doctrine\ORM\Query::HYDRATE_SINGLE_SCALAR,
+		\Doctrine\ORM\Query::HYDRATE_SIMPLEOBJECT
 	);
 	expectedArguments(\Doctrine\ORM\Query::setHydrationMode(), 0, argumentsSet('doctrine_hydration_modes'));
 	expectedArguments(\Doctrine\ORM\AbstractQuery::setHydrationMode(), 0, argumentsSet('doctrine_hydration_modes'));
