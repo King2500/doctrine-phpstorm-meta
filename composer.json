@@ -12,6 +12,7 @@
   "require-dev": {
     "doctrine/annotations": "^1.6",
     "doctrine/collections": "^1.5",
-    "doctrine/dbal": "^2.9"
+    "doctrine/dbal": "^2.9",
+    "doctrine/orm": "^2.6"
   }
 }

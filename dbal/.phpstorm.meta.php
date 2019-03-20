@@ -227,6 +227,9 @@ namespace PHPSTORM_META {
 		\Doctrine\DBAL\LockMode::PESSIMISTIC_WRITE
 	);
 	expectedArguments(\Doctrine\DBAL\Platforms\AbstractPlatform::appendLockHint(), 1, argumentsSet('doctrine_lock_modes'));
+	expectedArguments(\Doctrine\ORM\Query::setLockMode(), 0, argumentsSet('doctrine_lock_modes'));
+	expectedReturnValues(\Doctrine\ORM\Query::getLockMode(), argumentsSet('doctrine_lock_modes'));
+	expectedArguments(\Doctrine\ORM\EntityManagerInterface::lock(), 1, argumentsSet('doctrine_lock_modes'));
 
 	registerArgumentsSet('doctrine_transaction_isolation_levels',
 		\Doctrine\DBAL\TransactionIsolationLevel::READ_UNCOMMITTED,
@@ -287,7 +290,22 @@ namespace PHPSTORM_META {
 		\Doctrine\DBAL\Events::onSchemaAlterTableChangeColumn,
 		\Doctrine\DBAL\Events::onSchemaAlterTableRenameColumn,
 		\Doctrine\DBAL\Events::onSchemaColumnDefinition,
-		\Doctrine\DBAL\Events::onSchemaIndexDefinition
+		\Doctrine\DBAL\Events::onSchemaIndexDefinition,
+		\Doctrine\ORM\Events::prePersist,
+		\Doctrine\ORM\Events::postPersist,
+		\Doctrine\ORM\Events::preUpdate,
+		\Doctrine\ORM\Events::postUpdate,
+		\Doctrine\ORM\Events::preRemove,
+		\Doctrine\ORM\Events::postRemove,
+		\Doctrine\ORM\Events::postLoad,
+		\Doctrine\ORM\Events::loadClassMetadata,
+		\Doctrine\ORM\Events::onClassMetadataNotFound,
+		\Doctrine\ORM\Events::preFlush,
+		\Doctrine\ORM\Events::onFlush,
+		\Doctrine\ORM\Events::postFlush,
+		\Doctrine\ORM\Events::onClear,
+		\Doctrine\ORM\Tools\ToolEvents::postGenerateSchemaTable,
+		\Doctrine\ORM\Tools\ToolEvents::postGenerateSchema
 	);
 	expectedArguments(\Doctrine\Common\EventManager::dispatchEvent(), 0, argumentsSet('doctrine_events'));
 	expectedArguments(\Doctrine\Common\EventManager::getListeners(), 0, argumentsSet('doctrine_events'));
