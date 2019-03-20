@@ -65,6 +65,7 @@ namespace PHPSTORM_META {
 		\Doctrine\ORM\Cache::MODE_REFRESH
 	);
 	expectedArguments(\Doctrine\ORM\AbstractQuery::setCacheMode(), 0, argumentsSet('doctrine_cache_modes'));
+	expectedArguments(\Doctrine\ORM\QueryBuilder::setCacheMode(), 0, argumentsSet('doctrine_cache_modes'));
 
 	registerArgumentsSet('doctrine_cache_modes_flags',
 		\Doctrine\ORM\Cache::MODE_NORMAL |
@@ -73,6 +74,7 @@ namespace PHPSTORM_META {
 		\Doctrine\ORM\Cache::MODE_REFRESH
 	);
 	expectedReturnValues(\Doctrine\ORM\AbstractQuery::getCacheMode(), argumentsSet('doctrine_cache_modes_flags'));
+	expectedReturnValues(\Doctrine\ORM\QueryBuilder::getCacheMode(), argumentsSet('doctrine_cache_modes_flags'));
 
 	registerArgumentsSet('doctrine_query_hints',
 		\Doctrine\ORM\Query::HINT_REFRESH,
@@ -86,14 +88,129 @@ namespace PHPSTORM_META {
 		\Doctrine\ORM\Query::HINT_INTERNAL_ITERATION,
 		\Doctrine\ORM\Query::HINT_LOCK_MODE
 	);
-	expectedReturnValues(\Doctrine\ORM\Query::setHint(), 0, argumentsSet('doctrine_query_hints'));
-	expectedReturnValues(\Doctrine\ORM\AbstractQuery::setHint(), 0, argumentsSet('doctrine_query_hints'));
-	expectedReturnValues(\Doctrine\ORM\AbstractQuery::hasHint(), 0, argumentsSet('doctrine_query_hints'));
-	expectedReturnValues(\Doctrine\ORM\AbstractQuery::getHint(), 0, argumentsSet('doctrine_query_hints'));
+	expectedArguments(\Doctrine\ORM\Query::setHint(), 0, argumentsSet('doctrine_query_hints'));
+	expectedArguments(\Doctrine\ORM\AbstractQuery::setHint(), 0, argumentsSet('doctrine_query_hints'));
+	expectedArguments(\Doctrine\ORM\AbstractQuery::hasHint(), 0, argumentsSet('doctrine_query_hints'));
+	expectedArguments(\Doctrine\ORM\AbstractQuery::getHint(), 0, argumentsSet('doctrine_query_hints'));
 
 	registerArgumentsSet('doctrine_query_states',
 		\Doctrine\ORM\Query::STATE_CLEAN,
 		\Doctrine\ORM\Query::STATE_DIRTY
 	);
 	expectedReturnValues(\Doctrine\ORM\Query::getState(), argumentsSet('doctrine_query_states'));
+
+	registerArgumentsSet('doctrine_querybuilder_types',
+		\Doctrine\ORM\QueryBuilder::SELECT,
+		\Doctrine\ORM\QueryBuilder::DELETE,
+		\Doctrine\ORM\QueryBuilder::UPDATE
+	);
+	expectedReturnValues(\Doctrine\ORM\QueryBuilder::getType(), argumentsSet('doctrine_querybuilder_types'));
+
+	registerArgumentsSet('doctrine_querybuilder_states',
+		\Doctrine\ORM\QueryBuilder::STATE_CLEAN,
+		\Doctrine\ORM\QueryBuilder::STATE_DIRTY
+	);
+	expectedReturnValues(\Doctrine\ORM\QueryBuilder::getState(), argumentsSet('doctrine_querybuilder_states'));
+
+	registerArgumentsSet('doctrine_querybuilder_parts',
+		'select', 'from', 'join', 'set', 'where', 'groupBy', 'having', 'orderBy'
+	);
+	expectedArguments(\Doctrine\ORM\QueryBuilder::add(), 0, argumentsSet('doctrine_querybuilder_parts'));
+	expectedArguments(\Doctrine\ORM\QueryBuilder::resetDQLPart(), 0, argumentsSet('doctrine_querybuilder_parts'));
+
+	registerArgumentsSet('doctrine_querybuilder_expr_dummy', '');
+	expectedArguments(\Doctrine\ORM\QueryBuilder::where(), 0, argumentsSet('doctrine_querybuilder_expr_dummy'));
+	expectedArguments(\Doctrine\ORM\QueryBuilder::andWhere(), 0, argumentsSet('doctrine_querybuilder_expr_dummy'));
+	expectedArguments(\Doctrine\ORM\QueryBuilder::orWhere(), 0, argumentsSet('doctrine_querybuilder_expr_dummy'));
+	expectedArguments(\Doctrine\ORM\QueryBuilder::having(), 0, argumentsSet('doctrine_querybuilder_expr_dummy'));
+	expectedArguments(\Doctrine\ORM\QueryBuilder::andHaving(), 0, argumentsSet('doctrine_querybuilder_expr_dummy'));
+	expectedArguments(\Doctrine\ORM\QueryBuilder::orHaving(), 0, argumentsSet('doctrine_querybuilder_expr_dummy'));
+	expectedArguments(\Doctrine\ORM\Query\Expr::andX(), 0, argumentsSet('doctrine_querybuilder_expr_dummy'));
+	expectedArguments(\Doctrine\ORM\Query\Expr::andX(), 1, argumentsSet('doctrine_querybuilder_expr_dummy'));
+	expectedArguments(\Doctrine\ORM\Query\Expr::andX(), 2, argumentsSet('doctrine_querybuilder_expr_dummy'));
+	expectedArguments(\Doctrine\ORM\Query\Expr::andX(), 3, argumentsSet('doctrine_querybuilder_expr_dummy'));
+	expectedArguments(\Doctrine\ORM\Query\Expr::orX(), 0, argumentsSet('doctrine_querybuilder_expr_dummy'));
+	expectedArguments(\Doctrine\ORM\Query\Expr::orX(), 1, argumentsSet('doctrine_querybuilder_expr_dummy'));
+	expectedArguments(\Doctrine\ORM\Query\Expr::orX(), 2, argumentsSet('doctrine_querybuilder_expr_dummy'));
+	expectedArguments(\Doctrine\ORM\Query\Expr::orX(), 3, argumentsSet('doctrine_querybuilder_expr_dummy'));
+	expectedArguments(\Doctrine\ORM\Query\Expr\Base::add(), 0, argumentsSet('doctrine_querybuilder_expr_dummy'));
+	expectedArguments(\Doctrine\ORM\Query\Expr\Base::addMultiple(), 0, argumentsSet('doctrine_querybuilder_expr_dummy'));
+	expectedReturnValues(\Doctrine\ORM\QueryBuilder::expr(), argumentsSet('doctrine_querybuilder_expr_dummy'));  // This does the trick ;-)
+
+	registerArgumentsSet('doctrine_join_condition_types',
+		\Doctrine\ORM\Query\Expr\Join::ON,
+		\Doctrine\ORM\Query\Expr\Join::WITH
+	);
+	expectedArguments(\Doctrine\ORM\QueryBuilder::join(), 2, argumentsSet('doctrine_join_condition_types'));
+	expectedArguments(\Doctrine\ORM\QueryBuilder::innerJoin(), 2, argumentsSet('doctrine_join_condition_types'));
+	expectedArguments(\Doctrine\ORM\QueryBuilder::leftJoin(), 2, argumentsSet('doctrine_join_condition_types'));
+	expectedReturnValues(\Doctrine\ORM\Query\Expr\Join::getConditionType(), argumentsSet('doctrine_join_condition_types'));
+
+	registerArgumentsSet('doctrine_join_types',
+		\Doctrine\ORM\Query\Expr\Join::INNER_JOIN,
+		\Doctrine\ORM\Query\Expr\Join::LEFT_JOIN
+	);
+	expectedArguments(\Doctrine\ORM\Query\Expr\Join::__construct(), 0, argumentsSet('doctrine_join_types'));
+	expectedReturnValues(\Doctrine\ORM\Query\Expr\Join::getJoinType(), argumentsSet('doctrine_join_types'));
+
+	registerArgumentsSet('doctrine_comparison_operators',
+		\Doctrine\ORM\Query\Expr\Comparison::EQ,
+		\Doctrine\ORM\Query\Expr\Comparison::NEQ,
+		\Doctrine\ORM\Query\Expr\Comparison::LT,
+		\Doctrine\ORM\Query\Expr\Comparison::LTE,
+		\Doctrine\ORM\Query\Expr\Comparison::GT,
+		\Doctrine\ORM\Query\Expr\Comparison::GTE
+	);
+	expectedArguments(\Doctrine\ORM\Query\Expr\Comparison::__construct(), 1, argumentsSet('doctrine_comparison_operators'));
+	expectedReturnValues(\Doctrine\ORM\Query\Expr\Comparison::getOperator(), argumentsSet('doctrine_comparison_operators'));
+
+	registerArgumentsSet('doctrine_order_directions', 'ASC', 'DESC');
+	expectedArguments(\Doctrine\ORM\QueryBuilder::orderBy(), 1, argumentsSet('doctrine_order_directions'));
+	expectedArguments(\Doctrine\ORM\QueryBuilder::addOrderBy(), 1, argumentsSet('doctrine_order_directions'));
+	expectedArguments(\Doctrine\ORM\Query\Expr\OrderBy::__construct(), 1, argumentsSet('doctrine_order_directions'));
+	expectedArguments(\Doctrine\ORM\Query\Expr\OrderBy::add(), 1, argumentsSet('doctrine_order_directions'));
+
+	registerArgumentsSet('doctrine_lifecycle_events',
+		\Doctrine\ORM\Events::postLoad,
+		\Doctrine\ORM\Events::prePersist,
+		\Doctrine\ORM\Events::postPersist,
+		\Doctrine\ORM\Events::preUpdate,
+		\Doctrine\ORM\Events::postUpdate,
+		\Doctrine\ORM\Events::preRemove,
+		\Doctrine\ORM\Events::postRemove,
+		\Doctrine\ORM\Events::preFlush,
+		\Doctrine\ORM\Events::onFlush,
+		\Doctrine\ORM\Events::postFlush
+	);
+	expectedArguments(\Doctrine\ORM\Event\ListenersInvoker::getSubscribedSystems(), 1, argumentsSet('doctrine_lifecycle_events'));
+	expectedArguments(\Doctrine\ORM\Event\ListenersInvoker::invoke(), 1, argumentsSet('doctrine_lifecycle_events'));
+
+	registerArgumentsSet('doctrine_listener_invoke',
+		\Doctrine\ORM\Event\ListenersInvoker::INVOKE_NONE |
+		\Doctrine\ORM\Event\ListenersInvoker::INVOKE_LISTENERS |
+		\Doctrine\ORM\Event\ListenersInvoker::INVOKE_CALLBACKS |
+		\Doctrine\ORM\Event\ListenersInvoker::INVOKE_MANAGER
+	);
+	expectedArguments(\Doctrine\ORM\Event\ListenersInvoker::invoke(), 4, argumentsSet('doctrine_listener_invoke'));
+	expectedReturnValues(\Doctrine\ORM\Event\ListenersInvoker::getSubscribedSystems(), argumentsSet('doctrine_listener_invoke'));
+
+	registerArgumentsSet('doctrine_rename_modes',
+		\Doctrine\ORM\Query\ResultSetMappingBuilder::COLUMN_RENAMING_NONE,
+		\Doctrine\ORM\Query\ResultSetMappingBuilder::COLUMN_RENAMING_CUSTOM,
+		\Doctrine\ORM\Query\ResultSetMappingBuilder::COLUMN_RENAMING_INCREMENT
+	);
+	expectedArguments(\Doctrine\ORM\Query\ResultSetMappingBuilder::__construct(), 1, argumentsSet('doctrine_rename_modes'));
+	expectedArguments(\Doctrine\ORM\Query\ResultSetMappingBuilder::addRootEntityFromClassMetadata(), 3, argumentsSet('doctrine_rename_modes'));
+	expectedArguments(\Doctrine\ORM\Query\ResultSetMappingBuilder::addJoinedEntityFromClassMetadata(), 5, argumentsSet('doctrine_rename_modes'));
+	expectedArguments(\Doctrine\ORM\Query\ResultSetMappingBuilder::getColumnAlias(), 1, argumentsSet('doctrine_rename_modes'));
+	expectedArguments(\Doctrine\ORM\Query\ResultSetMappingBuilder::getColumnAliasMap(), 1, argumentsSet('doctrine_rename_modes'));
+
+	registerArgumentsSet('doctrine_entity_states',
+		\Doctrine\ORM\UnitOfWork::STATE_MANAGED,
+		\Doctrine\ORM\UnitOfWork::STATE_NEW,
+		\Doctrine\ORM\UnitOfWork::STATE_DETACHED,
+		\Doctrine\ORM\UnitOfWork::STATE_REMOVED
+	);
+	expectedArguments(\Doctrine\ORM\UnitOfWork::getEntityState(), 1, argumentsSet('doctrine_entity_states'));
+	expectedReturnValues(\Doctrine\ORM\UnitOfWork::getEntityState(), argumentsSet('doctrine_entity_states'));
 }
