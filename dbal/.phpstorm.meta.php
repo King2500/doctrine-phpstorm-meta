@@ -101,7 +101,11 @@ namespace PHPSTORM_META {
 		\Doctrine\DBAL\ParameterType::BOOLEAN,
 		\Doctrine\DBAL\ParameterType::BINARY
 	);
-	expectedArguments(\Doctrine\DBAL\Statement::bindValue(), 2, argumentsSet('doctrine_parameter_types'));
+	expectedArguments(\Doctrine\DBAL\Statement::bindValue(), 2, argumentsSet('doctrine_binding_types'));
+	expectedArguments(\Doctrine\ORM\QueryBuilder::setParameter(), 2, argumentsSet('doctrine_binding_types'));
+	expectedArguments(\Doctrine\ORM\Query\Parameter::__construct(), 2, argumentsSet('doctrine_binding_types'));
+	expectedArguments(\Doctrine\ORM\Query\Parameter::setValue(), 1, argumentsSet('doctrine_binding_types'));
+	expectedReturnValues(\Doctrine\ORM\Query\Parameter::getType(), argumentsSet('doctrine_binding_types'));
 
 	registerArgumentsSet('doctrine_binding_types_with_list',
 		\Doctrine\DBAL\Types\Type::STRING,
@@ -169,8 +173,17 @@ namespace PHPSTORM_META {
 	expectedArguments(\Doctrine\DBAL\Query\QueryBuilder::where(), 0, argumentsSet('doctrine_query_expr_dummy'));
 	expectedArguments(\Doctrine\DBAL\Query\QueryBuilder::andWhere(), 0, argumentsSet('doctrine_query_expr_dummy'));
 	expectedArguments(\Doctrine\DBAL\Query\QueryBuilder::orWhere(), 0, argumentsSet('doctrine_query_expr_dummy'));
+	expectedArguments(\Doctrine\DBAL\Query\QueryBuilder::having(), 0, argumentsSet('doctrine_query_expr_dummy'));
+	expectedArguments(\Doctrine\DBAL\Query\QueryBuilder::andHaving(), 0, argumentsSet('doctrine_query_expr_dummy'));
+	expectedArguments(\Doctrine\DBAL\Query\QueryBuilder::orHaving(), 0, argumentsSet('doctrine_query_expr_dummy'));
 	expectedArguments(\Doctrine\DBAL\Query\Expression\ExpressionBuilder::andX(), 0, argumentsSet('doctrine_query_expr_dummy'));
+	expectedArguments(\Doctrine\DBAL\Query\Expression\ExpressionBuilder::andX(), 1, argumentsSet('doctrine_query_expr_dummy'));
+	expectedArguments(\Doctrine\DBAL\Query\Expression\ExpressionBuilder::andX(), 2, argumentsSet('doctrine_query_expr_dummy'));
+	expectedArguments(\Doctrine\DBAL\Query\Expression\ExpressionBuilder::andX(), 3, argumentsSet('doctrine_query_expr_dummy'));
 	expectedArguments(\Doctrine\DBAL\Query\Expression\ExpressionBuilder::orX(), 0, argumentsSet('doctrine_query_expr_dummy'));
+	expectedArguments(\Doctrine\DBAL\Query\Expression\ExpressionBuilder::orX(), 1, argumentsSet('doctrine_query_expr_dummy'));
+	expectedArguments(\Doctrine\DBAL\Query\Expression\ExpressionBuilder::orX(), 2, argumentsSet('doctrine_query_expr_dummy'));
+	expectedArguments(\Doctrine\DBAL\Query\Expression\ExpressionBuilder::orX(), 3, argumentsSet('doctrine_query_expr_dummy'));
 	expectedReturnValues(\Doctrine\DBAL\Query\QueryBuilder::expr(), argumentsSet('doctrine_query_expr_dummy'));  // This does the trick ;-)
 
 	registerArgumentsSet('doctrine_expression_operators',
@@ -182,6 +195,10 @@ namespace PHPSTORM_META {
 		\Doctrine\DBAL\Query\Expression\ExpressionBuilder::GTE
 	);
 	expectedArguments(\Doctrine\DBAL\Query\Expression\ExpressionBuilder::comparison(), 1, argumentsSet('doctrine_expression_operators'));
+
+	registerArgumentsSet('doctrine_order_directions', 'ASC', 'DESC');
+	expectedArguments(\Doctrine\DBAL\Query\QueryBuilder::orderBy(), 1, argumentsSet('doctrine_order_directions'));
+	expectedArguments(\Doctrine\DBAL\Query\QueryBuilder::addOrderBy(), 1, argumentsSet('doctrine_order_directions'));
 
 	registerArgumentsSet('doctrine_fetch_modes',
 		\Doctrine\DBAL\FetchMode::MIXED,
