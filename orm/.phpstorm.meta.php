@@ -2,6 +2,7 @@
 
 namespace PHPSTORM_META {
 
+	// change `AbstractQuery` to `Query` when fixed and shipped: https://youtrack.jetbrains.com/issue/WI-45908
 	registerArgumentsSet('doctrine_hydration_modes',
 		\Doctrine\ORM\AbstractQuery::HYDRATE_OBJECT,
 		\Doctrine\ORM\AbstractQuery::HYDRATE_ARRAY,
@@ -9,6 +10,8 @@ namespace PHPSTORM_META {
 		\Doctrine\ORM\AbstractQuery::HYDRATE_SINGLE_SCALAR,
 		\Doctrine\ORM\AbstractQuery::HYDRATE_SIMPLEOBJECT
 	);
+	
+	// definitions for `Query` can be removed when publicly shipped: https://youtrack.jetbrains.com/issue/WI-45824
 	expectedArguments(\Doctrine\ORM\Query::setHydrationMode(), 0, argumentsSet('doctrine_hydration_modes'));
 	expectedArguments(\Doctrine\ORM\AbstractQuery::setHydrationMode(), 0, argumentsSet('doctrine_hydration_modes'));
 	expectedReturnValues(\Doctrine\ORM\AbstractQuery::getHydrationMode(), argumentsSet('doctrine_hydration_modes'));
