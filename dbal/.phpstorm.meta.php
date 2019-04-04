@@ -247,6 +247,9 @@ namespace PHPSTORM_META {
 	expectedArguments(\Doctrine\ORM\Query::setLockMode(), 0, argumentsSet('doctrine_lock_modes'));
 	expectedReturnValues(\Doctrine\ORM\Query::getLockMode(), argumentsSet('doctrine_lock_modes'));
 	expectedArguments(\Doctrine\ORM\EntityManagerInterface::lock(), 1, argumentsSet('doctrine_lock_modes'));
+	expectedArguments(\Doctrine\ORM\EntityManager::find(), 2, argumentsSet('doctrine_lock_modes'));
+    // following definition can be removed when publicly shipped: https://youtrack.jetbrains.com/issue/WI-45824
+	expectedArguments(\Doctrine\ORM\EntityManager::lock(), 1, argumentsSet('doctrine_lock_modes'));
 
 	registerArgumentsSet('doctrine_transaction_isolation_levels',
 		\Doctrine\DBAL\TransactionIsolationLevel::READ_UNCOMMITTED,
