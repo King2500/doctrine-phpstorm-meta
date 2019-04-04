@@ -95,6 +95,8 @@ namespace PHPSTORM_META {
 	expectedArguments(\Doctrine\ORM\AbstractQuery::setHint(), 0, argumentsSet('doctrine_query_hints'));
 	expectedArguments(\Doctrine\ORM\AbstractQuery::hasHint(), 0, argumentsSet('doctrine_query_hints'));
 	expectedArguments(\Doctrine\ORM\AbstractQuery::getHint(), 0, argumentsSet('doctrine_query_hints'));
+	expectedArguments(\Doctrine\ORM\Configuration::getDefaultQueryHint(), 0, argumentsSet('doctrine_query_hints'));
+	expectedArguments(\Doctrine\ORM\Configuration::setDefaultQueryHint(), 0, argumentsSet('doctrine_query_hints'));
 
 	registerArgumentsSet('doctrine_query_states',
 		\Doctrine\ORM\Query::STATE_CLEAN,
@@ -216,4 +218,17 @@ namespace PHPSTORM_META {
 	);
 	expectedArguments(\Doctrine\ORM\UnitOfWork::getEntityState(), 1, argumentsSet('doctrine_entity_states'));
 	expectedReturnValues(\Doctrine\ORM\UnitOfWork::getEntityState(), argumentsSet('doctrine_entity_states'));
+
+    // change `AbstractProxyFactory` to `ProxyFactory` when fixed and shipped: https://youtrack.jetbrains.com/issue/WI-45908
+	registerArgumentsSet('doctrine_proxy_autogenerate',
+        \Doctrine\Common\Proxy\AbstractProxyFactory::AUTOGENERATE_NEVER,
+        \Doctrine\Common\Proxy\AbstractProxyFactory::AUTOGENERATE_ALWAYS,
+        \Doctrine\Common\Proxy\AbstractProxyFactory::AUTOGENERATE_FILE_NOT_EXISTS,
+        \Doctrine\Common\Proxy\AbstractProxyFactory::AUTOGENERATE_EVAL
+    );
+	expectedArguments(\Doctrine\ORM\Configuration::setAutoGenerateProxyClasses(), 0, argumentsSet('doctrine_proxy_autogenerate'));
+	expectedReturnValues(\Doctrine\ORM\Configuration::getAutoGenerateProxyClasses(), argumentsSet('doctrine_proxy_autogenerate'));
+	expectedArguments(\Doctrine\Common\Proxy\AbstractProxyFactory::__construct(), 2, argumentsSet('doctrine_proxy_autogenerate'));
+	expectedArguments(\Doctrine\ORM\Proxy\ProxyFactory::__construct(), 3, argumentsSet('doctrine_proxy_autogenerate'));
+
 }
