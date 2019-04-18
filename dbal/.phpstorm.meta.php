@@ -46,7 +46,6 @@ namespace PHPSTORM_META {
 		\Doctrine\DBAL\ParameterType::BOOLEAN,
 		\Doctrine\DBAL\ParameterType::BINARY
 	);
-	expectedArguments(\Doctrine\DBAL\Statement::bindParam(), 2, argumentsSet('doctrine_parameter_types'));
 	expectedArguments(\Doctrine\DBAL\Driver\Statement::bindValue(), 2, argumentsSet('doctrine_parameter_types'));
 	expectedArguments(\Doctrine\DBAL\Driver\Statement::bindParam(), 2, argumentsSet('doctrine_parameter_types'));
 	expectedReturnValues(\Doctrine\DBAL\Types\Type::getBindingType(), argumentsSet('doctrine_parameter_types'));
@@ -64,7 +63,6 @@ namespace PHPSTORM_META {
 //	expectedArguments(\Doctrine\DBAL\Connection::update(), 3, array(argumentsSet('doctrine_parameter_types')));
 //	expectedArguments(\Doctrine\DBAL\Connection::insert(), 2, array(argumentsSet('doctrine_parameter_types')));
 //	expectedArguments(\Doctrine\DBAL\Connection::extractTypeValues(), 1, array(argumentsSet('doctrine_parameter_types')));
-	expectedArguments(\Doctrine\DBAL\Connection::quote(), 1, argumentsSet('doctrine_parameter_types'));
 	expectedArguments(\Doctrine\DBAL\Driver\Connection::quote(), 1, argumentsSet('doctrine_parameter_types'));
 	expectedArguments(\Doctrine\DBAL\Query\Expression\ExpressionBuilder::literal(), 1, argumentsSet('doctrine_parameter_types'));
 
@@ -248,8 +246,6 @@ namespace PHPSTORM_META {
 	expectedReturnValues(\Doctrine\ORM\Query::getLockMode(), argumentsSet('doctrine_lock_modes'));
 	expectedArguments(\Doctrine\ORM\EntityManagerInterface::lock(), 1, argumentsSet('doctrine_lock_modes'));
 	expectedArguments(\Doctrine\ORM\EntityManager::find(), 2, argumentsSet('doctrine_lock_modes'));
-    // following definition can be removed when publicly shipped: https://youtrack.jetbrains.com/issue/WI-45824
-	expectedArguments(\Doctrine\ORM\EntityManager::lock(), 1, argumentsSet('doctrine_lock_modes'));
 
 	registerArgumentsSet('doctrine_transaction_isolation_levels',
 		\Doctrine\DBAL\TransactionIsolationLevel::READ_UNCOMMITTED,

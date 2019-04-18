@@ -11,8 +11,6 @@ namespace PHPSTORM_META {
 		\Doctrine\ORM\AbstractQuery::HYDRATE_SIMPLEOBJECT
 	);
 	
-	// definitions for `Query` can be removed when publicly shipped: https://youtrack.jetbrains.com/issue/WI-45824
-	expectedArguments(\Doctrine\ORM\Query::setHydrationMode(), 0, argumentsSet('doctrine_hydration_modes'));
 	expectedArguments(\Doctrine\ORM\AbstractQuery::setHydrationMode(), 0, argumentsSet('doctrine_hydration_modes'));
 	expectedReturnValues(\Doctrine\ORM\AbstractQuery::getHydrationMode(), argumentsSet('doctrine_hydration_modes'));
 	expectedArguments(\Doctrine\ORM\AbstractQuery::getResult(), 0, argumentsSet('doctrine_hydration_modes'));
@@ -22,11 +20,8 @@ namespace PHPSTORM_META {
 	expectedArguments(\Doctrine\ORM\AbstractQuery::execute(), 1, argumentsSet('doctrine_hydration_modes'));
 	expectedArguments(\Doctrine\ORM\AbstractQuery::executeIgnoreQueryCache(), 1, argumentsSet('doctrine_hydration_modes'));
 	expectedArguments(\Doctrine\ORM\AbstractQuery::executeUsingQueryCache(), 1, argumentsSet('doctrine_hydration_modes'));
-	expectedArguments(\Doctrine\ORM\Query::iterate(), 1, argumentsSet('doctrine_hydration_modes'));
 	expectedArguments(\Doctrine\ORM\EntityManagerInterface::getHydrator(), 0, argumentsSet('doctrine_hydration_modes'));
 	expectedArguments(\Doctrine\ORM\EntityManagerInterface::newHydrator(), 0, argumentsSet('doctrine_hydration_modes'));
-	expectedArguments(\Doctrine\ORM\EntityManager::getHydrator(), 0, argumentsSet('doctrine_hydration_modes'));
-	expectedArguments(\Doctrine\ORM\EntityManager::newHydrator(), 0, argumentsSet('doctrine_hydration_modes'));
 
 	registerArgumentsSet('doctrine_orm_fetch_modes',
 		\Doctrine\ORM\Mapping\ClassMetadataInfo::FETCH_EAGER,
@@ -91,7 +86,6 @@ namespace PHPSTORM_META {
 		\Doctrine\ORM\Query::HINT_INTERNAL_ITERATION,
 		\Doctrine\ORM\Query::HINT_LOCK_MODE
 	);
-	expectedArguments(\Doctrine\ORM\Query::setHint(), 0, argumentsSet('doctrine_query_hints'));
 	expectedArguments(\Doctrine\ORM\AbstractQuery::setHint(), 0, argumentsSet('doctrine_query_hints'));
 	expectedArguments(\Doctrine\ORM\AbstractQuery::hasHint(), 0, argumentsSet('doctrine_query_hints'));
 	expectedArguments(\Doctrine\ORM\AbstractQuery::getHint(), 0, argumentsSet('doctrine_query_hints'));
