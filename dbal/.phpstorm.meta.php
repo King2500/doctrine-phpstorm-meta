@@ -246,6 +246,7 @@ namespace PHPSTORM_META {
 	expectedReturnValues(\Doctrine\ORM\Query::getLockMode(), argumentsSet('doctrine_lock_modes'));
 	expectedArguments(\Doctrine\ORM\EntityManagerInterface::lock(), 1, argumentsSet('doctrine_lock_modes'));
 	expectedArguments(\Doctrine\ORM\EntityManager::find(), 2, argumentsSet('doctrine_lock_modes'));
+	expectedArguments(\Doctrine\ORM\Decorator\EntityManagerDecorator::find(), 2, argumentsSet('doctrine_lock_modes'));
 
 	registerArgumentsSet('doctrine_transaction_isolation_levels',
 		\Doctrine\DBAL\TransactionIsolationLevel::READ_UNCOMMITTED,
