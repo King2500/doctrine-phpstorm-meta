@@ -286,15 +286,39 @@ namespace PHPSTORM_META {
 	expectedArguments(\Doctrine\DBAL\Platforms\AbstractPlatform::getDateArithmeticIntervalExpression(), 3, argumentsSet('doctrine_dateinterval_units'));
 	expectedArguments(\Doctrine\DBAL\Platforms\AbstractPlatform::getDateArithmeticIntervalExpression(), 1, '+', '-');
 
-	registerArgumentsSet('doctrine_schema_options',
+	registerArgumentsSet('doctrine_schema_table_options_keys',
 		'engine',
 		'collation',
 		'autoincrement',
 		'comment',
-		'create_options'
+		'create_options',
+		'azure.federatedOnDistributionName',
+		'azure.federatedOnColumnName'
 	);
-	expectedArguments(\Doctrine\DBAL\Schema\Table::hasOption(), 0, argumentsSet('doctrine_schema_options'));
-	expectedArguments(\Doctrine\DBAL\Schema\Table::getOption(), 0, argumentsSet('doctrine_schema_options'));
+	expectedArguments(\Doctrine\DBAL\Schema\Table::hasOption(), 0, argumentsSet('doctrine_schema_table_options_keys'));
+	expectedArguments(\Doctrine\DBAL\Schema\Table::getOption(), 0, argumentsSet('doctrine_schema_table_options_keys'));
+	expectedArguments(\Doctrine\DBAL\Schema\Table::addOption(), 0, argumentsSet('doctrine_schema_table_options_keys'));
+
+	registerArgumentsSet('doctrine_schema_index_options_keys',
+		'where',
+		'lengths'
+	);
+	expectedArguments(\Doctrine\DBAL\Schema\Index::hasOption(), 0, argumentsSet('doctrine_schema_index_options_keys'));
+	expectedArguments(\Doctrine\DBAL\Schema\Index::getOption(), 0, argumentsSet('doctrine_schema_index_options_keys'));
+
+	registerArgumentsSet('doctrine_schema_fk_options_keys',
+		'onUpdate',
+		'onDelete',
+		'match',
+		'deferrable',
+		'deferred',
+		'feferred',
+		'check_on_commit',
+		'clustered',
+		'for_olap_workload'
+	);
+	expectedArguments(\Doctrine\DBAL\Schema\ForeignKeyConstraint::hasOption(), 0, argumentsSet('doctrine_schema_fk_options_keys'));
+	expectedArguments(\Doctrine\DBAL\Schema\ForeignKeyConstraint::getOption(), 0, argumentsSet('doctrine_schema_fk_options_keys'));
 
 	registerArgumentsSet('doctrine_events',
 		\Doctrine\DBAL\Events::postConnect,
@@ -365,32 +389,122 @@ namespace PHPSTORM_META {
 	expectedReturnValues(\Doctrine\DBAL\Driver::getName(), argumentsSet('doctrine_driver_names'));
 //	expectedReturnValues(\Doctrine\DBAL\DriverManager::getAvailableDrivers(), array(argumentsSet('doctrine_driver_names')));
 
-//	registerArgumentsSet('doctrine_connection_params', array(
-//		'driver' => argumentsSet('doctrine_driver_names'),
-//		'dbName' => '',
-//		'user' => '',
-//		'password' => '',
-//		'host' => '',
-//		'port' => '',
-//		'url' => 'mysql://user:passwd@localhost/dbname',
-//		'driverOptions' => [],
-//		'pdo' => new \PDO(),
-//		'driverClass' => '',
-//		'wrapperClass' => '',
-//		'serverVersion' => '',
-//		'fetch_case' => argumentsSet('doctrine_column_cases'),
-//		'portability' => argumentsSet('doctrine_portabilities'),
-//		'platform' => new \Doctrine\DBAL\Platforms\AbstractPlatform(),
-//		'master' => '',
-//		'slaves' => '',
-//		'global' => '',
-//		'shards' => '',
-//		'charset' => '',
-//		'unix_socket' => '',
-//		'path' => '',
-//	));
-//	expectedArguments(\Doctrine\DBAL\DriverManager::getConnection(), 0, argumentsSet('doctrine_connection_params'));
-//	expectedArguments(\Doctrine\DBAL\Connection::__construct(), 0, argumentsSet('doctrine_connection_params'));
-//	expectedReturnValues(\Doctrine\DBAL\Connection::getParams(), argumentsSet('doctrine_connection_params'));
+	registerArgumentsSet('doctrine_connection_params', array(
+		'driver' => '',
+		'user' => '',
+		'password' => '',
+		'host' => '',
+		'port' => 0,
+		'dbname' => '',
+		'url' => 'driver://user:passwd@localhost/dbname',
+		'driverOptions' => [],
+		'pdo' => new \PDO(),
+		'driverClass' => '',
+		'wrapperClass' => \Doctrine\DBAL\Connection::class,
+		'serverVersion' => '',
+		'fetch_case' => 0,
+		'portability' => 0,
+		'platform' => new \Doctrine\DBAL\Platforms\AbstractPlatform(),
+		'master' => '',
+		'slaves' => '',
+		'global' => '',
+		'shards' => '',
+		'default_dbname' => '', // pdo_pgsql
+		'charset' => '', // pdo_mysql, mysqli, pdo_pgsql, pdo_oci, oci8
+		'unix_socket' => '', // pdo_mysql, mysqli
+		'path' => '', // pdo_sqlite
+		'memory' => false, // pdo_sqlite
+		'ssl_key' => '', // mysqli
+		'ssl_cert' => '', // mysqli
+		'ssl_ca' => '', // mysqli
+		'ssl_capath' => '', // mysqli
+		'ssl_cipher' => '', // mysqli
+		'sslmode' => '', // pdo_pgsql
+		'sslrootcert' => '', // pdo_pgsql
+		'sslcert' => '', // pdo_pgsql
+		'sslkey' => '', // pdo_pgsql
+		'sslcrl' => '', // pdo_pgsql
+		'application_name' => '', // pdo_pgsql
+		'servicename' => '', // pdo_oci
+		'service' => false, // pdo_oci
+		'pooled' => false, // pdo_oci
+		'instancename' => '', // pdo_oci
+		'connectstring' => '', // pdo_oci
+		'persistent' => false, // pdo_oci, sqlanywhere
+	));
+	expectedArguments(\Doctrine\DBAL\DriverManager::getConnection(), 0, argumentsSet('doctrine_connection_params'));
+	expectedArguments(\Doctrine\DBAL\Connection::__construct(), 0, argumentsSet('doctrine_connection_params'));
+	expectedReturnValues(\Doctrine\DBAL\Connection::getParams(), argumentsSet('doctrine_connection_params'));
+
+	registerArgumentsSet('doctrine_schema_column_options', array(
+		'length' => 0,
+		'precision' => 10,
+		'scale' => 0,
+		'unsigned' => false,
+		'fixed' => false,
+		'notnull' => false,
+		'default' => '',
+		'autoincrement' => false, // MySQL
+		'columnDefinition' => '',
+		'comment' => '',
+	));
+	expectedArguments(\Doctrine\DBAL\Schema\Column::__construct(), 2, argumentsSet('doctrine_schema_column_options'));
+	expectedArguments(\Doctrine\DBAL\Schema\Table::addColumn(), 2, argumentsSet('doctrine_schema_column_options'));
+
+	registerArgumentsSet('doctrine_schema_column_options_with_type', array(
+		'type' => \Doctrine\DBAL\Types\Type::getType(),
+		'length' => 0,
+		'precision' => 10,
+		'scale' => 0,
+		'unsigned' => false,
+		'fixed' => false,
+		'notnull' => false,
+		'default' => '',
+		'autoincrement' => false, // MySQL
+		'columnDefinition' => '',
+		'comment' => '',
+	));
+	expectedArguments(\Doctrine\DBAL\Schema\Column::setOptions(), 0, argumentsSet('doctrine_schema_column_options_with_type'));
+	expectedArguments(\Doctrine\DBAL\Schema\Table::changeColumn(), 1, argumentsSet('doctrine_schema_column_options_with_type'));
+
+	registerArgumentsSet('doctrine_schema_table_options', array(
+		'engine' => '', // MySQL
+		'collation' => '', // MySQL
+		'autoincrement' => '', // MySQL
+		'comment' => '', // MySQL
+		'create_options' => '', // MySQL
+		'alter' => false, // SQLite
+		'azure.federatedOnDistributionName' => '', // Azure
+		'azure.federatedOnColumnName' => '', // Azure
+	));
+	expectedArguments(\Doctrine\DBAL\Schema\Table::__construct(), 5, argumentsSet('doctrine_schema_table_options'));
+	expectedReturnValues(\Doctrine\DBAL\Schema\Table::getOptions(), argumentsSet('doctrine_schema_table_options'));
+
+	registerArgumentsSet('doctrine_schema_index_options', array(
+		'where' => '',
+		'lengths' => [],
+	));
+	expectedArguments(\Doctrine\DBAL\Schema\Index::__construct(), 5, argumentsSet('doctrine_schema_index_options'));
+	expectedArguments(\Doctrine\DBAL\Schema\Table::_createIndex(), 5, argumentsSet('doctrine_schema_index_options'));
+	expectedArguments(\Doctrine\DBAL\Schema\Table::addIndex(), 3, argumentsSet('doctrine_schema_index_options'));
+	expectedArguments(\Doctrine\DBAL\Schema\Table::addUniqueIndex(), 2, argumentsSet('doctrine_schema_index_options'));
+	expectedReturnValues(\Doctrine\DBAL\Schema\Index::getOptions(), argumentsSet('doctrine_schema_index_options'));
+
+	registerArgumentsSet('doctrine_schema_fk_options', array(
+		'onUpdate' => '',
+		'onDelete' => '',
+		'match' => '',
+		'deferrable' => false, // PostgreSQL, SQLite
+		'deferred' => false, // PostgreSQL, SQLite
+		'feferred' => false, // PostgreSQL
+		'check_on_commit' => false, // SQLAnywhere
+		'clustered' => false, // SQLAnywhere
+		'for_olap_workload' => false, // SQLAnywhere
+	));
+	expectedArguments(\Doctrine\DBAL\Schema\ForeignKeyConstraint::__construct(), 4, argumentsSet('doctrine_schema_fk_options'));
+	expectedArguments(\Doctrine\DBAL\Schema\Table::addForeignKeyConstraint(), 3, argumentsSet('doctrine_schema_fk_options'));
+	expectedArguments(\Doctrine\DBAL\Schema\Table::addUnnamedForeignKeyConstraint(), 3, argumentsSet('doctrine_schema_fk_options'));
+	expectedArguments(\Doctrine\DBAL\Schema\Table::addNamedForeignKeyConstraint(), 4, argumentsSet('doctrine_schema_fk_options'));
+	expectedReturnValues(\Doctrine\DBAL\Schema\ForeignKeyConstraint::getOptions(), argumentsSet('doctrine_schema_fk_options'));
 
 }
