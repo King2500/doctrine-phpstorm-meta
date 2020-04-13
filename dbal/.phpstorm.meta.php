@@ -37,6 +37,8 @@ namespace PHPSTORM_META {
 	expectedArguments(\Doctrine\DBAL\Connection::convertToPHPValue(), 1, argumentsSet('doctrine_mapping_types'));
 	expectedArguments(\Doctrine\DBAL\Platforms\AbstractPlatform::registerDoctrineTypeMapping(), 1, argumentsSet('doctrine_mapping_types'));
 	expectedArguments(\Doctrine\DBAL\Schema\Table::addColumn(), 1, argumentsSet('doctrine_mapping_types'));
+	expectedArguments(\Doctrine\ORM\Query\ResultSetMapping::addScalarResult(), 2, argumentsSet('doctrine_mapping_types'));
+	expectedArguments(\Doctrine\ORM\Query\ResultSetMapping::addMetaResult(), 4, argumentsSet('doctrine_mapping_types'));
 
 	registerArgumentsSet('doctrine_parameter_types',
 		\Doctrine\DBAL\ParameterType::STRING,
