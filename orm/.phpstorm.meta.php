@@ -225,4 +225,29 @@ namespace PHPSTORM_META {
 	expectedArguments(\Doctrine\Common\Proxy\AbstractProxyFactory::__construct(), 2, argumentsSet('doctrine_proxy_autogenerate'));
 	expectedArguments(\Doctrine\ORM\Proxy\ProxyFactory::__construct(), 3, argumentsSet('doctrine_proxy_autogenerate'));
 
+    registerArgumentsSet('doctrine_orm_generator_strategies',
+        'AUTO',
+        'SEQUENCE',
+        'TABLE',
+        'IDENTITY',
+        'NONE',
+        'UUID',
+        'CUSTOM'
+    );
+    expectedArguments(\Doctrine\ORM\Mapping\GeneratedValue::__construct(), 0, argumentsSet('doctrine_orm_generator_strategies'));
+    expectedArguments(\Doctrine\ORM\Mapping\Cache::__construct(), 0, 'READ_ONLY', 'NONSTRICT_READ_WRITE', 'READ_WRITE');
+    expectedArguments(\Doctrine\ORM\Mapping\ChangeTrackingPolicy::__construct(), 0, 'DEFERRED_IMPLICIT', 'DEFERRED_EXPLICIT', 'NOTIFY');
+    expectedArguments(\Doctrine\ORM\Mapping\InheritanceType::__construct(), 0, 'NONE', 'JOINED', 'SINGLE_TABLE', 'TABLE_PER_CLASS');
+    //expectedArguments(\Doctrine\ORM\Mapping\Column::__construct(), 12, 'NEVER', 'INSERT', 'ALWAYS');
+
+    registerArgumentsSet('doctrine_orm_fetching_strategies',
+        'LAZY',
+        'EAGER',
+        'EXTRA_LAZY'
+    );
+//    expectedArguments(\Doctrine\ORM\Mapping\ManyToOne::__construct(), 2, argumentsSet('doctrine_orm_fetching_strategies'));
+//    expectedArguments(\Doctrine\ORM\Mapping\ManyToMany::__construct(), 4, argumentsSet('doctrine_orm_fetching_strategies'));
+//    expectedArguments(\Doctrine\ORM\Mapping\OneToOne::__construct(), 4, argumentsSet('doctrine_orm_fetching_strategies'));
+//    expectedArguments(\Doctrine\ORM\Mapping\OneToMany::__construct(), 3, argumentsSet('doctrine_orm_fetching_strategies'));
+
 }
