@@ -140,7 +140,10 @@ namespace PHPSTORM_META {
 		\Doctrine\DBAL\ParameterType::BOOLEAN,
 		\Doctrine\DBAL\ParameterType::BINARY,
 		\Doctrine\DBAL\Connection::PARAM_INT_ARRAY,
-		\Doctrine\DBAL\Connection::PARAM_STR_ARRAY
+		\Doctrine\DBAL\Connection::PARAM_STR_ARRAY,
+		\Doctrine\DBAL\ArrayParameterType::STRING,
+		\Doctrine\DBAL\ArrayParameterType::INTEGER,
+		\Doctrine\DBAL\ArrayParameterType::ASCII
 	);
 //	expectedArguments(\Doctrine\DBAL\Connection::executeQuery(), 2, array(argumentsSet('doctrine_binding_types_with_list')));
 //	expectedArguments(\Doctrine\DBAL\Connection::executeCacheQuery(), 2, array(argumentsSet('doctrine_binding_types_with_list')));
